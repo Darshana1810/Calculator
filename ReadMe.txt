@@ -1,14 +1,5 @@
-token types and meaning 
-i	:	integer
-v	:	variable (same as integer)
-x	:	invalid
-+	:	plus or addition
--	:	minus or subtraction
-*	:	multiplecation
-/	:	divide
-()	:	brackets
-
-
+Project Name  : Caluculator
+Based on Calculator program written by Bjarne Stroustrup in book Programming_ Principles and Practice using C++
 
 errors
 101	:	Invalid token
