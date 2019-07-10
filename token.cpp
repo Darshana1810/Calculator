@@ -1,6 +1,6 @@
 //Source code file number -> 2
 #include "token.h"
-#include "command.h"
+//#include "command.h"
 #include "error.h"
 #include <cstdlib>
 namespace {
@@ -57,8 +57,8 @@ token token_stream::get_token(token_stream& ts,command& c) {
 				return token(del);
 			else{
 				//check for defined variable 
-				double k = c.var_value(temp);
-				return token('v', k);
+				token k = c.var_value(temp);
+				return k;
 			}
 		}
 		//if input is special symbol
@@ -71,4 +71,9 @@ token token_stream::get_token(token_stream& ts,command& c) {
 void token_stream::put_token(token t) {
 		buffer = t;
 		full = true;
+}
+
+
+void token_stream::reset() {
+	full = false;
 }

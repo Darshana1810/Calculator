@@ -1,6 +1,6 @@
 // Calculator.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-#include "command.h"
+//#include "command.h"
 #include "token.h"
 
 
@@ -144,52 +144,54 @@ double brac_n_num(token_stream& ts,command& c) {
 		return -a.value;	}
 	default:
 		ts.put_token(t);
-		throw 101;
+		return 1;
+		//throw 101;
 	}
 }
 
-void clean_up() {
+void clean_up(token_stream& ts) {
 	char x;
 	do {
 		x = getchar();
 	} while (!(x == ' ' || x == 10 || x == ';' || x == 'q'));
+	ts.reset();
 	cin.putback(x);
 }
 
-void calculate() {
-	token_stream ts;
-	command c;
-	token temp{ 0 };
+void calculate(token_stream& ts, command& c) {
 	try {
 		do {
+			token temp{ 0 };
 			cout << ">";
-			temp = ts.get_token(ts,c);
+			temp = ts.get_token(ts, c);
 			while (temp.type == ';')
-				temp = ts.get_token(ts,c);//removes any remaining ';' from input stream
+				temp = ts.get_token(ts, c);//removes any remaining ';' from input stream
 			if (temp.type == 'q')
 				exit(0);
+			if (temp.type == 'e')
+				throw temp.value;
 
 			ts.put_token(temp);
-			cout << "=" << commands(ts,c) << endl;
+			cout << "\b=" << commands(ts, c) << endl;
 
 		} while (cin);
 	}
-	catch(int c){
-						//Source code file : Calculator
+	catch (double c) {
+		//Source code file : Calculator
 		if (c == 101) {
 			cerr << "Invalid token" << endl;
 		}
 
 
-							//Source code file : token
-		//function number -> 1
+		//Source code file : token
+//function number -> 1
 		if (c == 211) {//error 1
 			cerr << "Caluculator doesnot support special symbols" << endl;
 		}
 
 
-							//Source code file : command
-		//function number -> 2
+		//Source code file : command
+//function number -> 2
 		if (c == 321) {
 			cerr << "Variable name cannot start with number or Special Symbol" << endl;
 		}
@@ -200,22 +202,23 @@ void calculate() {
 			cerr << "Error in reading number" << endl;
 		}
 		if (c == 324) {
-			cerr << "Variable alread Defined/Pre-Defined"<<endl;
+			cerr << "Variable alread Defined/Pre-Defined" << endl;
 		}
 
 		//function number -> 3
 		if (c == 331) {
-			cerr << "1.Unknown Command" << endl;
+			cerr << "\b1.Unknown Command" << endl;
 			cerr << "2.Undefined variable" << endl << endl;
-			cout << "TIP: You can define variable using 'let' command (let a2=10)" << endl;
 		}
 
-		clean_up();
+		clean_up(ts);
 	}
 }
 
 int main() {
+	token_stream ts;
+	command c;
 	while (cin) {
-		calculate();
+		calculate(ts,c);
 	}
 }

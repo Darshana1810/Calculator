@@ -1,5 +1,5 @@
 //source code file number -> 3
-#include "command.h"
+//#include "command.h"
 #include "token.h"
 namespace {
 	const char quit = 'q', print = ';', let = 'L', del = 'D';
@@ -63,17 +63,17 @@ variable command::define_variable() {
 //Function number -> 3
 //error code -> 331
 //get variable value if defined
-double command::var_value(string name) {
+token command::var_value(string name) {
 	for (variable& i : variables) {
 		if (i.name == name)
-			return  i.value;
+			return  token('i', i.value);
 	}
 	for (variable& i : pre_defined) {
 		if (i.name == name)
-			return i.value;
+			return token('i', i.value);
 	}
 	//no variable found invalid token returned
-	throw 331;
+	return token('e', 331);
 }
 
 //function number -> 4
