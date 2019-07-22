@@ -1,8 +1,6 @@
 // Calculator.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-//#include "command.h"
 #include "token.h"
-
 
 namespace {
 	const char quit = 'q', print = ';', let = 'L', del = 'D';
@@ -109,6 +107,7 @@ double commands(token_stream& ts,command& c) {
 		switch (v.code) {
 		case 321:	case 322:	case 323:	case 324:
 			throw v.code;
+			break;
 		default:
 			cout << "Variable defined succesfully" << endl;
 		}
@@ -142,10 +141,7 @@ double brac_n_num(token_stream& ts,command& c) {
 	case '-': {
 		token a = ts.get_token(ts,c);
 		return -a.value;	}
-	default:
-		ts.put_token(t);
-		return 1;
-		//throw 101;
+	//default case enot needed as ts.get() wont return an unsupported character
 	}
 }
 
@@ -172,11 +168,11 @@ void calculate(token_stream& ts, command& c) {
 				throw temp.value;
 
 			ts.put_token(temp);
-			cout << "\b=" << commands(ts, c) << endl;
+			cout << "\b=" << commands(ts, c) << endl;// '\b' is used to erase '>' character from console is present
 
 		} while (cin);
 	}
-	catch (double c) {
+	catch (int c) {
 		//Source code file : Calculator
 		if (c == 101) {
 			cerr << "Invalid token" << endl;
@@ -205,9 +201,10 @@ void calculate(token_stream& ts, command& c) {
 			cerr << "Variable alread Defined/Pre-Defined" << endl;
 		}
 
-		//function number -> 3
+		//function number -> 3 (error first identified)
+		//error code thrown in source code file Calculator in function calculate
 		if (c == 331) {
-			cerr << "\b1.Unknown Command" << endl;
+			cerr << "\b1.Unknown Command" << endl;//'b' is used to remove '=' charcter from console is present
 			cerr << "2.Undefined variable" << endl << endl;
 		}
 

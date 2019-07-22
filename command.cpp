@@ -1,6 +1,7 @@
 //source code file number -> 3
-//#include "command.h"
+
 #include "token.h"
+
 namespace {
 	const char quit = 'q', print = ';', let = 'L', del = 'D';
 }
@@ -11,13 +12,13 @@ namespace {
 int command::check(string name) {
 	for (variable& i : variables) {
 		if (i.name == name) {
-			cerr << "Variable already defined" << endl;
+			//Variable already defined.
 			return 1;
 		}
 	}
 	for (variable& i : pre_defined) {
 		if (i.name == name) {
-			cerr << "Variable already pre-defined" << endl;
+			//Variable already pre-defined.
 			return 2;
 		}
 	}
@@ -74,6 +75,8 @@ token command::var_value(string name) {
 	}
 	//no variable found invalid token returned
 	return token('e', 331);
+	//error 331 detected, no action is taken as of yet , error code passed as token
+	//action is taken in calculate function in Calculator file
 }
 
 //function number -> 4

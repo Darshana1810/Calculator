@@ -1,8 +1,8 @@
 //Source code file number -> 2
 #include "token.h"
-//#include "command.h"
 #include "error.h"
 #include <cstdlib>
+
 namespace {
 	const char quit = 'q', print = ';', let = 'L', del = 'D';
 }
