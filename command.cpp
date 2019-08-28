@@ -8,7 +8,7 @@ namespace {
 
 //function number -> 1
 //No error codes
-//Check if variable is already defined 
+//Check if variable is already defined
 int command::check(string name) {
 	for (variable& i : variables) {
 		if (i.name == name) {
@@ -24,7 +24,6 @@ int command::check(string name) {
 	}
 	return 0;
 }
-
 
 //function number -> 2
 //error_codes -> 321,322,323,324
@@ -50,15 +49,15 @@ variable command::define_variable() {
 	} while (x != '=');
 
 	cin >> val;
-	if (!cin) { 
+	if (!cin) {
 		return variable(323);
 	}
-	int a=check(name);//checks if variabe is already defined
+	int a = check(name);//checks if variabe is already defined
 	if (a != 0) {
 		return variable(324);
 	}
 	variables.push_back(variable(name, val));
-	return variable(name,val);//success
+	return variable(name, val);//success
 }
 
 //Function number -> 3

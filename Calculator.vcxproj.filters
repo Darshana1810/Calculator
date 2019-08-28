@@ -26,7 +26,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="error.h">
+    <ClInclude Include="command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
